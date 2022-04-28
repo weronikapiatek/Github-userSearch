@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 
-const callGithubAPI = async (userName, repoName) => {
+const ShowUserRepoInfos = async (userName) => {
     const endpoint = `https://api.github.com/users/${userName}/repos`
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
 
     if (!Array.isArray(jsonResponse)) {
       return <div></div>
-    } else {
-      return <div>
+    }
+    
+    return <div>
         {jsonResponse.map((elem) => {
           return <div>
             <RepoInfo name={elem.name} url={elem.languages_url}/>
             </div>
         })}
       </div>
-    }
 };
 
 const RepoInfo = (props) => {
@@ -25,9 +25,7 @@ const RepoInfo = (props) => {
   const [languages, setLanguages] = useState('')
   const [visible, setVisible] = useState(false)
 
-  const endpoint = props.url
-
-  const response = fetch(endpoint).then((data) => data.json()).then((jsonData) => setLanguages(JSON.stringify(jsonData)))
+  fetch(props.url).then((data) => data.json()).then((jsonData) => setLanguages(JSON.stringify(jsonData)))
 
   return <div>
     <p onClick={() => setVisible(!visible)}>{visible ?
@@ -46,7 +44,7 @@ function App() {
  const [apiResponse, setApiResponse] = useState("now loading repo statistics. . .");
 
   useEffect(() => {
-      callGithubAPI(userName, "angular-snake-app").then(
+      ShowUserRepoInfos(userName).then(
           result => setApiResponse(result));
   },[submitCount]);
 
