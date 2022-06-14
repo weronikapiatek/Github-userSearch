@@ -1,9 +1,3 @@
-# allegro-summer-experience-2022
-
-My email in recruitment process : weronika.piatekk@gmail.com
-
-Here is the rest of readme:
-
 Project assumptions
 Project was created in ReactJS - to launch it, please follow steps listed below:
  
